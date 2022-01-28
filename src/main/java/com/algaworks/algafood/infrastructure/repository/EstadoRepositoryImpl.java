@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.algaworks.algafood.domain.model.Estado;
@@ -22,8 +23,7 @@ public class EstadoRepositoryImpl implements EstadoRepository{
 		return manager.createQuery("from Estado", Estado.class)
 				.getResultList();
 	}
-
-	@Transactional
+	
 	@Override
 	public Estado porId(Long id) {
 		return manager.find(Estado.class, id);
@@ -35,9 +35,14 @@ public class EstadoRepositoryImpl implements EstadoRepository{
 		return manager.merge(estado);
 	}
 
+	@Transactional
 	@Override
-	public void remover(Estado estado) {
-		estado = porId(estado.getId());
+	public void remover(Long id) {
+		Estado estado = porId(id);
+		
+		if(estado == null) {
+			throw new EmptyResultDataAccessException(1);
+		}
 		manager.remove(estado);
 		
 	}
