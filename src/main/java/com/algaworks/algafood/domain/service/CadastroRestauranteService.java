@@ -20,7 +20,7 @@ public class CadastroRestauranteService {
 	
 	public Restaurante salvar(Restaurante restaurante) {
 		long cozinhaId = restaurante.getCozinha().getId();
-		Cozinha cozinha = cozinhaRepository.porId(cozinhaId);
+		Cozinha cozinha = cozinhaRepository.buscar(cozinhaId);
 		
 		if(cozinha == null) {
 			throw new EntidadeNaoEncontradaException(
