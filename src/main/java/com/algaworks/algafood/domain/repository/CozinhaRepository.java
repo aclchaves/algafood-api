@@ -13,8 +13,8 @@ public interface CozinhaRepository extends JpaRepository<Cozinha, Long>{
 	
 	public List<Cozinha> findTodasByNomeContaining(String nome);
 	
-	public Optional<Cozinha> findByNome(String nome);	
+	public Optional<Cozinha> findByNome(String nome);
 	
-	
+	public boolean existsByNome(String nome);	
 
 }
