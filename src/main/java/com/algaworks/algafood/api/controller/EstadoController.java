@@ -50,11 +50,6 @@ public class EstadoController {
 	}
 	
 	@PostMapping
-	/*public ResponseEntity<?> adicionar (@RequestBody Estado estado){		
-		estado = cadastroEstado.salvar(estado);
-		
-		return ResponseEntity.status(HttpStatus.CREATED).body(estado);
-	}*/
 	@ResponseStatus(HttpStatus.CREATED)
 	public Estado adicionar (@RequestBody Estado estado){	
 		return cadastroEstado.salvar(estado);
@@ -63,14 +58,6 @@ public class EstadoController {
 	@PutMapping("/{estadoId}")
 	public ResponseEntity<Estado> atualizar(@PathVariable Long estadoId,
 			@RequestBody Estado estado){
-		
-//		Optional<Estado> estadoAtual = estadoRepository.findById(estadoId);
-//		
-//		if(estadoAtual.isPresent()) {
-//			BeanUtils.copyProperties(estado, estadoAtual.get(), "id");
-//			Estado estadoSalvo = cadastroEstado.salvar(estadoAtual.get());			
-//			return ResponseEntity.ok(estadoSalvo);
-//		}
 		Estado estadoAtual = estadoRepository.findById(estadoId).orElse(null);
 		
 		if(estadoAtual != null) {

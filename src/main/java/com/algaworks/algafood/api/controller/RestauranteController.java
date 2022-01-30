@@ -67,13 +67,6 @@ public class RestauranteController {
 	public ResponseEntity<?> atualizar(@PathVariable Long restauranteId,
 			@RequestBody Restaurante restaurante) {
 		try {
-//			Optional<Restaurante> restauranteAtual = restauranteRepository.findById(restauranteId);
-//
-//			if (restauranteAtual.isPresent()) {
-//				BeanUtils.copyProperties(restaurante, restauranteAtual.get(), "id");
-//				Restaurante restauranteSalvo = cadastroRestaurante.salvar(restauranteAtual.get());
-//				return ResponseEntity.ok(restauranteSalvo);
-//			}
 			Restaurante restauranteAtual = restauranteRepository
 			        .findById(restauranteId).orElse(null);
 			
@@ -94,11 +87,6 @@ public class RestauranteController {
 	@PatchMapping("/{restauranteId}")
 	public ResponseEntity<?> atualizarParcial(@PathVariable Long restauranteId, 
 			@RequestBody Map<String, Object> campos){
-//		Optional<Restaurante> restauranteAtual = restauranteRepository.findById(restauranteId);
-//		
-//		if(restauranteAtual.isEmpty()) {
-//			return ResponseEntity.notFound().build();
-//		}
 		Restaurante restauranteAtual = restauranteRepository
 		        .findById(restauranteId).orElse(null);
 		
@@ -116,9 +104,7 @@ public class RestauranteController {
 			Field field = ReflectionUtils.findField(Restaurante.class, nomePropriedade);
 			field.setAccessible(true);
 			
-			Object novoValor = ReflectionUtils.getField(field, restauranteOrigem);
-			
-			//System.out.println(nomePropriedade + " = " + valorPropriedade + " = " + novoValor);
+			Object novoValor = ReflectionUtils.getField(field, restauranteOrigem);			
 			
 			ReflectionUtils.setField(field, restauranteDestino, novoValor);			
 			
