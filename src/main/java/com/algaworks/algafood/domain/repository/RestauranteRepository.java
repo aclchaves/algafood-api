@@ -21,7 +21,7 @@ public interface RestauranteRepository
 	
 	public List<Restaurante> queryByTaxaFreteBetween(BigDecimal taxaInicial, BigDecimal taxaFinal);
 	
-	List<Restaurante> consultaPorNome(String nome, @Param("id") Long cozinha);
+	public List<Restaurante> consultaPorNome(String nome, @Param("id") Long cozinha);
 	
 	public Optional<Restaurante> findFirstRestauranteByNomeContaining(String nome);
 	
