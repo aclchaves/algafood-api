@@ -38,19 +38,7 @@ public class RestauranteController {
 	@GetMapping
 	public List<Restaurante> listar() {
 		return restauranteRepository.findAll();
-	}
-	
-	//exemplo de mudança do comportamento eager para lazy
-//	@GetMapping
-//	public List<Restaurante> listar() {
-//		List<Restaurante> restaurantes =  restauranteRepository.findAll();
-//		
-//		System.out.println("O nome da cozinha é:");
-//		System.out.println(restaurantes.get(0).getCozinha().getNome());
-//		
-//		
-//		return restaurantes;
-//	}
+	}	
 
 	@GetMapping("/{restauranteId}")
 	public ResponseEntity<Restaurante> buscar(@PathVariable Long restauranteId) {
