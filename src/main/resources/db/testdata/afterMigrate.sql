@@ -1,11 +1,50 @@
+
+set foreign_key_checks = 0;
+
+delete from cidade;
+delete from cozinha;
+delete from forma_pagamento;
+delete from grupo;
+delete from grupo_permissao;
+delete from permissao;
+delete from produto;
+delete from restaurante;
+delete from restaurante_forma_pagamento;
+delete from usuario;
+delete from usuario_grupo;
+
+set foreign_key_checks = 1;
+
+alter table cidade auto_increment = 1;
+delete from cozinha;
+delete from forma_pagamento;
+delete from grupo;
+delete from grupo_permissao;
+delete from permissao;
+delete from produto;
+delete from restaurante;
+delete from restaurante_forma_pagamento;
+delete from usuario;
+delete from usuario_grupo;
+
+alter table cidade auto_increment = 1;
+alter table cozinha auto_increment = 1;
+alter table forma_pagamento auto_increment = 1;
+alter table grupo auto_increment = 1;
+alter table permissao auto_increment = 1;
+alter table produto auto_increment = 1;
+alter table restaurante auto_increment = 1;
+alter table usuario auto_increment = 1;
+
+
 insert into cozinha (id, nome) values (1, 'Tailandesa');
 insert into cozinha (id, nome) values (2, 'Indiana');
 insert into cozinha (id, nome) values (3, 'Argentina');
 insert into cozinha (id, nome) values (4, 'Brasileira');
 
-insert into estado (id, nome) values (1, 'Minas Gerais');
-insert into estado (id, nome) values (2, 'São Paulo');
-insert into estado (id, nome) values (3, 'Ceará');
+insert into estado (nome) values ('Minas Gerais');
+insert into estado (nome) values ('São Paulo');
+insert into estado (nome) values ('Ceará');
 
 insert into cidade (id, nome, estado_id) values (1, 'Campina Verde', 1);
 insert into cidade (id, nome, estado_id) values (2, 'Ituiutaba', 1);

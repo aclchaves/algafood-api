@@ -61,7 +61,7 @@ public class Restaurante {
 	@Column(nullable = false, columnDefinition = "datetime")
 	private LocalDateTime dataAtualizacao;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	//não e recomendavel para relacionamento muitos para muitos usar requisação EAGER
 	@ManyToMany//(fetch = FetchType.EAGER)
 	@JoinTable(name = "restaurante_forma_pagamento",
