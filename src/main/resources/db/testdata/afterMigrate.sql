@@ -3,6 +3,7 @@ set foreign_key_checks = 0;
 
 delete from cidade;
 delete from cozinha;
+delete from estado;
 delete from forma_pagamento;
 delete from grupo;
 delete from grupo_permissao;
