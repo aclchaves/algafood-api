@@ -1,5 +1,8 @@
 package com.algaworks.algafood.api.exceptionhandler;
 
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -42,10 +45,14 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 	private ResponseEntity<Object> handleInvalidFormatException(InvalidFormatException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		
+		String path = ex.getPath().stream()
+				.map(ref -> ref.getFieldName())
+				.collect(Collectors.joining("."));
+		
 		ProblemType problemType = ProblemType.MENSAGEM_INCOMPREENSIVEL;
 		String detail = String.format("A propriedade '%s' recebebeu o valor '%s', que é "
 				+ "de um tipo inválido. Corrija e informe um valor compatível "
-				+ "com o tipo %s", "a", ex.getValue(), ex.getTargetType()
+				+ "com o tipo %s", path, ex.getValue(), ex.getTargetType()
 				.getSimpleName());
 		
 		
