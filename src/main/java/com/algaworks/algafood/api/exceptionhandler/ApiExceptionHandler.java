@@ -26,8 +26,6 @@ import com.fasterxml.jackson.databind.JsonMappingException.Reference;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 
-import net.bytebuddy.implementation.bind.MethodDelegationBinder.BindingResolver;
-
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 	
