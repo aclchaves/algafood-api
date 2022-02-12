@@ -26,6 +26,9 @@ import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 	
+	private static final String MSG_ERRO_GENERICA_USUARIO_FINAL = "Ocorreu um erro interno inesperado no sistema. "
+			+ "Tenta novamente e se o problema persistir, entre em contato com o administrado do sistema.";
+	
 	@Override
 	protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {
@@ -100,6 +103,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 				+ "Corrija ou remova essa propriedade e tente novamente.", path);
 		
 		Problem problem = createProblemBuilder(status, problemType, detail)
+		.userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
 		.build();
 		
 		return handleExceptionInternal(ex, problem, headers, status, request);
@@ -128,6 +132,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 		
 		
 		Problem problem = createProblemBuilder(status, problemType, detail)
+				.userMessage(MSG_ERRO_GENERICA_USUARIO_FINAL)
 				.build();
 		
 		return handleExceptionInternal(ex, problem, headers, status, request);
@@ -176,6 +181,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 		String detail = ex.getMessage();
 		
 		Problem problem = createProblemBuilder(status, problemType, detail)
+				.userMessage(detail)
 				.build();		
 		
 		return handleExceptionInternal(ex, problem, new HttpHeaders(),
