@@ -1,4 +1,4 @@
-package com.algaworks.algafood.core.calidation;
+package com.algaworks.algafood.core.validation;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
