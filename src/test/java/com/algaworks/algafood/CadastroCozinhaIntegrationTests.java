@@ -6,10 +6,8 @@ import javax.validation.ConstraintViolationException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
@@ -21,7 +19,7 @@ class CadastroCozinhaIntegrationTests {
 	CadastroCozinhaService cadastroCozinha;
 	
 	@Test
-	public void testarCadastroCozinhaComSucesso() {
+	public void deveAtribuirId_QuandoCadastrarCozinhaComDadosCorretos() {
 		//cenário
 		Cozinha novaCozinha = new Cozinha();
 		novaCozinha.setNome("Chinesa");		
@@ -35,7 +33,7 @@ class CadastroCozinhaIntegrationTests {
 	}
 	
 	@Test
-	public void testarCadastroCozinhaSemNome() {
+	public void deveFalhar_QunadoCadastrarCozinhaSemNome() {
 	   Cozinha novaCozinha = new Cozinha();
 	   novaCozinha.setNome(null);
 	   
