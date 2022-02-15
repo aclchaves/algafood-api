@@ -36,7 +36,7 @@ public class CozinhaController {
 		return cozinhaRepository.findAll();
 	}
 
-	@GetMapping("/{cozinhaId}")
+	@GetMapping("/{cozinhaId}")	
 	public Cozinha buscar(@PathVariable Long cozinhaId) {
 		return cadastroCozinha.buscarOuFalhar(cozinhaId);
 	}
@@ -48,6 +48,7 @@ public class CozinhaController {
 	}
 
 	@PutMapping("/{cozinhaId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public Cozinha atualizar(@PathVariable Long cozinhaId, @RequestBody @Valid Cozinha cozinha) {		
 		
 		Cozinha cozinhaAtual = cadastroCozinha.buscarOuFalhar(cozinhaId);
@@ -58,8 +59,7 @@ public class CozinhaController {
 		
 	}
 
-	@DeleteMapping("/{cozinhaId}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@DeleteMapping("/{cozinhaId}")	
 	public void remover(@PathVariable Long cozinhaId) {	
 			cadastroCozinha.excluir(cozinhaId);			
 	}
