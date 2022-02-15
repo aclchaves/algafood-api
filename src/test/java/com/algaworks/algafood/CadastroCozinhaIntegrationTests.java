@@ -63,7 +63,7 @@ class CadastroCozinhaIntegrationTests {
 	@Test
 	public void deveFalhar_QunadoExcluirCozinhaInexistente() {
 		Cozinha novaCozinha = new Cozinha();
-		novaCozinha.setId(10L);
+		novaCozinha.setId(1L);
 		
 		CozinhaNaoEncontradaException erroEsperado =
 			      Assertions.assertThrows(CozinhaNaoEncontradaException.class, () -> {
