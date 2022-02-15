@@ -47,8 +47,7 @@ public class CozinhaController {
 		return cadastroCozinha.salvar(cozinha);
 	}
 
-	@PutMapping("/{cozinhaId}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PutMapping("/{cozinhaId}")	
 	public Cozinha atualizar(@PathVariable Long cozinhaId, @RequestBody @Valid Cozinha cozinha) {		
 		
 		Cozinha cozinhaAtual = cadastroCozinha.buscarOuFalhar(cozinhaId);
@@ -59,7 +58,8 @@ public class CozinhaController {
 		
 	}
 
-	@DeleteMapping("/{cozinhaId}")	
+	@DeleteMapping("/{cozinhaId}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long cozinhaId) {	
 			cadastroCozinha.excluir(cozinhaId);			
 	}
