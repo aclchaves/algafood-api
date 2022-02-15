@@ -15,7 +15,7 @@ import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 
 @SpringBootTest
-class CadastroCozinhaIntegrationTests {
+class CadastroCozinhaIT {
 	
 	@Autowired
 	CadastroCozinhaService cadastroCozinha;
@@ -63,7 +63,7 @@ class CadastroCozinhaIntegrationTests {
 	@Test
 	public void deveFalhar_QunadoExcluirCozinhaInexistente() {
 		Cozinha novaCozinha = new Cozinha();
-		novaCozinha.setId(1L);
+		novaCozinha.setId(100L);
 		
 		CozinhaNaoEncontradaException erroEsperado =
 			      Assertions.assertThrows(CozinhaNaoEncontradaException.class, () -> {
