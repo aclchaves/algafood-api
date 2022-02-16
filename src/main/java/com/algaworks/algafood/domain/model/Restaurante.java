@@ -27,9 +27,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.algaworks.algafood.core.validation.Groups;
-import com.algaworks.algafood.core.validation.Multiplo;
 import com.algaworks.algafood.core.validation.ValorZeroIncluiDescricao;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -45,22 +45,18 @@ public class Restaurante {
 	@EqualsAndHashCode.Include
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-//	@NotNull
-//	@NotEmpty
+	private Long id;	
+
 	@NotBlank
 	@Column(nullable = false)
-	private String nome;
-	
-//	@DecimalMin("0")
+	private String nome;	
+
 	@NotNull
 	@PositiveOrZero
-	@Multiplo(numero = 5)
-//	@TaxaFrete
 	@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
 	
+	@JsonIgnoreProperties(value = "nome", allowGetters = true )
 	@Valid
 	@ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
 	@NotNull
