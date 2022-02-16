@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.exceptionhandler;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -21,7 +21,7 @@ public class Problem {
 	private List<Object> objects;
 	
 	private String userMessage;
-	LocalDateTime timestamp;
+	OffsetDateTime timestamp;
 	
 	@Getter
 	@Builder
