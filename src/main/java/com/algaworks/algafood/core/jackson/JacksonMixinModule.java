@@ -2,12 +2,12 @@ package com.algaworks.algafood.core.jackson;
 
 import org.springframework.stereotype.Component;
 
-import com.algaworks.algafood.domain.mixin.CidadeMixin;
-import com.algaworks.algafood.domain.mixin.CozinhaMixin;
-import com.algaworks.algafood.domain.mixin.GrupoMixin;
-import com.algaworks.algafood.domain.mixin.ProdutoMixin;
-import com.algaworks.algafood.domain.mixin.RestauranteMixin;
-import com.algaworks.algafood.domain.mixin.UsuarioMixin;
+import com.algaworks.algafood.api.model.mixin.CidadeMixin;
+import com.algaworks.algafood.api.model.mixin.CozinhaMixin;
+import com.algaworks.algafood.api.model.mixin.GrupoMixin;
+import com.algaworks.algafood.api.model.mixin.ProdutoMixin;
+import com.algaworks.algafood.api.model.mixin.RestauranteMixin;
+import com.algaworks.algafood.api.model.mixin.UsuarioMixin;
 import com.algaworks.algafood.domain.model.Cidade;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Grupo;
