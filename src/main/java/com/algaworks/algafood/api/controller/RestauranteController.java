@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +21,6 @@ import com.algaworks.algafood.api.model.RestauranteModel;
 import com.algaworks.algafood.api.model.input.RestauranteInput;
 import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
-import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
@@ -77,13 +75,14 @@ public class RestauranteController {
 		
 		try {
 			
-			Restaurante restaurante = restauranteInputDisassembler
-					.toDomainObject(restauranteInput);
+//			    Restaurante restaurante = restauranteInputDisassembler.toDomainObject(restauranteInput);			
 		
 				Restaurante restauranteAtual = cadastroRestaurante.buscarOuFalhar(restauranteId);
+				
+				restauranteInputDisassembler.copyToDomainObject(restauranteInput, restauranteAtual);
 			
-				BeanUtils.copyProperties(restaurante, restauranteAtual,
-						"id", "formasPagamento", "endereco", "dataCadastro", "produtos");			
+//				BeanUtils.copyProperties(restaurante, restauranteAtual,
+//						"id", "formasPagamento", "endereco", "dataCadastro", "produtos");			
 			
 				return restauranteModelAssembler.toModel(
 						cadastroRestaurante.salvar(restauranteAtual));
