@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,7 +38,8 @@ public class Pedido {
 	@Embedded
 	private Endereco enderecoEntrega;
 	
-	private StatusPedido status;
+	@Enumerated(EnumType.STRING)
+	private StatusPedido status = StatusPedido.CRIADO;
 
 	@CreationTimestamp	
 	private OffsetDateTime dataCriacao;
@@ -61,5 +64,20 @@ public class Pedido {
 	
 	@OneToMany(mappedBy = "pedido")
 	private List<ItemPedido> items = new ArrayList<>();
+	
+	public void CalculaValorTotal() {
+		this.subtotal = getItems().stream()
+				.map(item -> item.getPrecoTotal())
+				.reduce(BigDecimal.ZERO, BigDecimal::add);
+	this.valorTotal = this.valorTotal.add(this.taxaFrete);
+	}
+	
+	public void definirFrete() {
+		setTaxaFrete(getRestaurante().getTaxaFrete());
+	}
+	
+	public void atribuirPedidoAosItens() {
+		getItems().forEach(item -> item.setPedido(this));
+	}
 
 }

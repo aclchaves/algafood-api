@@ -117,8 +117,7 @@ public class CadastroRestauranteService {
 		Restaurante restaurante = buscarOuFalhar(restauranteId);
 		Usuario usuario = cadastroUsuario.buscarOuFalhar(usuarioId);
 		
-		restaurante.adicionarResponsavel(usuario);
-		
+		restaurante.adicionarResponsavel(usuario);		
 	}
 	
 	
