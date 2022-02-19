@@ -75,16 +75,11 @@ public class RestauranteController {
 	public RestauranteModel atualizar(@PathVariable Long restauranteId,
 			@RequestBody @Valid RestauranteInput restauranteInput) {
 		
-		try {
-			
-//			    Restaurante restaurante = restauranteInputDisassembler.toDomainObject(restauranteInput);			
+		try {		
 		
 				Restaurante restauranteAtual = cadastroRestaurante.buscarOuFalhar(restauranteId);
 				
-				restauranteInputDisassembler.copyToDomainObject(restauranteInput, restauranteAtual);
-			
-//				BeanUtils.copyProperties(restaurante, restauranteAtual,
-//						"id", "formasPagamento", "endereco", "dataCadastro", "produtos");			
+				restauranteInputDisassembler.copyToDomainObject(restauranteInput, restauranteAtual);	
 			
 				return restauranteModelAssembler.toModel(
 						cadastroRestaurante.salvar(restauranteAtual));
@@ -105,4 +100,15 @@ public class RestauranteController {
 		cadastroRestaurante.inativar(restauranteId);
 	}
 	
+	@PutMapping("/{restauranteId}/abertura")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void abrirRestaurante(@PathVariable Long restauranteId) {
+		cadastroRestaurante.abrir(restauranteId);
+	}
+	
+	@PutMapping("/{restauranteId}/fechamento")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void fecharRestaurante(@PathVariable Long restauranteId) {
+		cadastroRestaurante.fechar(restauranteId);
+	}	
 }
