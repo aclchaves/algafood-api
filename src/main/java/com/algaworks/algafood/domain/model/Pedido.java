@@ -5,6 +5,7 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -63,22 +64,25 @@ public class Pedido {
 	private Usuario cliente;	
 	
 	
-	@OneToMany(mappedBy = "pedido")
-	private List<ItemPedido> items = new ArrayList<>();
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+	private List<ItemPedido> itens = new ArrayList<>();	
 	
-	public void CalculaValorTotal() {
-		this.subtotal = getItems().stream()
-				.map(item -> item.getPrecoTotal())
-				.reduce(BigDecimal.ZERO, BigDecimal::add);
-	this.valorTotal = this.valorTotal.add(this.taxaFrete);
+	public void calcularValorTotal() {
+	    getItens().forEach(ItemPedido::calcularPrecoTotal);
+	    
+	    this.subtotal = getItens().stream()
+	        .map(item -> item.getPrecoTotal())
+	        .reduce(BigDecimal.ZERO, BigDecimal::add);
+	    
+	    this.valorTotal = this.subtotal.add(this.taxaFrete);
 	}
 	
-	public void definirFrete() {
-		setTaxaFrete(getRestaurante().getTaxaFrete());
-	}
-	
-	public void atribuirPedidoAosItens() {
-		getItems().forEach(item -> item.setPedido(this));
-	}
+//	public void definirFrete() {
+//		setTaxaFrete(getRestaurante().getTaxaFrete());
+//	}
+//	
+//	public void atribuirPedidoAosItens() {
+//		getItems().forEach(item -> item.setPedido(this));
+//	}
 
 }

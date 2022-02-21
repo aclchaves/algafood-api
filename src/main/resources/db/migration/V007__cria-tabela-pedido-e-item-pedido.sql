@@ -31,7 +31,7 @@ create table item_pedido (
 	quantidade smallint(6) not null,
 	preco_unitario decimal(10,2) not null,
 	preco_total decimal(10,2) not null,
-	observacao varchar(255) not null,
+	observacao varchar(255) null,
 	produto_id bigint not null,	
 	pedido_id bigint not null,
 	

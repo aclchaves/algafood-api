@@ -19,7 +19,6 @@ delete from item_pedido;
 
 set foreign_key_checks = 1;
 
-alter table cidade auto_increment = 1;
 delete from cozinha;
 delete from forma_pagamento;
 delete from grupo;
@@ -39,6 +38,8 @@ alter table permissao auto_increment = 1;
 alter table produto auto_increment = 1;
 alter table restaurante auto_increment = 1;
 alter table usuario auto_increment = 1;
+alter table pedido auto_increment = 1;
+alter table item_pedido auto_increment = 1;
 
 
 insert into cozinha (id, nome) values (1, 'Tailandesa');

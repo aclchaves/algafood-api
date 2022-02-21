@@ -24,7 +24,7 @@ public class PedidoModel {
 	private UsuarioModel cliente;
 	private FormaPagamentoModel formaPagamento;
 	private EnderecoModel enderecoEntrega;	
-	private List<ItemPedidoModel> items;
+	private List<ItemPedidoModel> itens;
 	
 	
 }
