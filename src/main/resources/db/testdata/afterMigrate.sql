@@ -127,3 +127,21 @@ values (2, '41f5db7a-9594-11ec-b909-0242ac120002', 4, 1, 2, 1, '38400-111', 'Rua
 
 insert into item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, preco_total, observacao)
 values (3, 2, 6, 1, 79, 79, 'Ao ponto');
+
+insert into pedido (id, codigo, restaurante_id, usuario_cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep, 
+        endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro,
+        status, data_criacao, subtotal, taxa_frete, valor_total)
+values (3, 'fb7d5d0c-305f-4b3a-b8f2-e3062812475a', 1, 2, 1, 1, '38400-111', 'Rua Acre', '300', 'Casa 2', 'Centro',
+'ENTREGUE', utc_timestamp, 174, 5, 79);
+
+insert into item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, preco_total, observacao)
+values (4, 3, 4, 2, 87.2, 174.4, null);
+
+insert into pedido (id, codigo, restaurante_id, usuario_cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep, 
+        endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro,
+        status, data_criacao, subtotal, taxa_frete, valor_total)
+values (4, 'f527d4f2-966e-11ec-b909-0242ac120002', 1, 3, 2, 1, '38400-111', 'Rua 10', '930', 'Casa 2', 'Centro',
+'ENTREGUE', utc_timestamp, 87.2, 10, 79);
+
+insert into item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, preco_total, observacao)
+values (5, 4, 3, 1, 87.2, 87.2, null);
