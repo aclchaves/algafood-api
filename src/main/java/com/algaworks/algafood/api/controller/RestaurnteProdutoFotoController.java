@@ -20,12 +20,12 @@ public class RestaurnteProdutoFotoController {
 	@PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public void autalizarFoto(@PathVariable Long restauranteId,
 			@PathVariable Long produtoId,
-			@Valid FotoProdutoInput fotoProdutoInput) {
+			@Valid FotoProdutoInput fotoProdutoInput){
 		
 		var nomeArquivo =  UUID.randomUUID().toString()
 				+"_"+ fotoProdutoInput.getArquivo().getOriginalFilename();
 		
-		var arquivoFoto = Path.of("/Users/notebook/Pictures/upload",nomeArquivo);
+		var arquivoFoto = Path.of("/Users/notebook/Pictures/upload", nomeArquivo);
 		
 		System.out.println(fotoProdutoInput.getDescricao());
 		System.out.println(arquivoFoto);
