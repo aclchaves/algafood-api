@@ -2,7 +2,6 @@ package com.algaworks.algafood.domain.service;
 
 import java.io.InputStream;
 import java.util.Optional;
-import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -27,10 +26,12 @@ public class CatalogoFotoProdutoService {
 		Long resauranteId = foto.getRestauranteId();
 		Long produtoId = foto.getProduto().getId();
 		String nomeNovoArquivo = fotoStorage.gerarNomeArquivo(foto.getNomeArquivo());
+		String nomeArquivoExistente = null;
 		
 		Optional<FotoProduto> fotoExistente = produtoRepository
 				.findFotoById(resauranteId, produtoId);
 		if(fotoExistente.isPresent()) {
+			nomeArquivoExistente = fotoExistente.get().getNomeArquivo();
 			produtoRepository.delete(fotoExistente.get());
 		}
 		
@@ -43,7 +44,7 @@ public class CatalogoFotoProdutoService {
 				.inputStream(dadosArquivo)
 				.build();
 		
-		fotoStorage.amazenar(novaFoto);
+		fotoStorage.Substituir(nomeArquivoExistente, novaFoto);
 		
 		return foto;
 	}

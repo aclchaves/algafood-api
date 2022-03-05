@@ -10,9 +10,20 @@ public interface FotoStorageService {
 	
 	public void amazenar(NovaFoto novaFoto);
 	
+	public void remover(String nomeArquivo);
+	
+	default void Substituir(String nomeArquivoAntigo, NovaFoto novaFoto) {
+		this.amazenar(novaFoto);
+		
+		if(nomeArquivoAntigo != null) {
+			this.remover(nomeArquivoAntigo);
+		}
+		
+	}
+	
 	default String gerarNomeArquivo(String nomeOriginal) {
 		return UUID.randomUUID().toString() + "_" + nomeOriginal;
-	}
+	}	
 	
 	@Builder
 	@Getter
