@@ -38,19 +38,19 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 	private static final String MSG_ERRO_GENERICA_USUARIO_FINAL = "Ocorreu um erro interno inesperado no sistema. "
 			+ "Tenta novamente e se o problema persistir, entre em contato com o administrado do sistema.";
 	
+	@Autowired
+	private MessageSource messageSource;
+	
 	@Override
 	protected ResponseEntity<Object> handleBindException(BindException ex, HttpHeaders headers, HttpStatus status,
 			WebRequest request) {		
 		return handleValidationInternal(ex, ex.getBindingResult(), headers, status, request);
 	}
 	
-	@Autowired
-	private MessageSource messageSource;
-	
-	@ExceptionHandler(ValidacaoException.class)
-	public ResponseEntity<Object> handleValidacaoException(ValidacaoException ex, WebRequest request) {
-		return handleValidationInternal(ex, ex.getBindingResult(), new HttpHeaders(),
-				HttpStatus.BAD_REQUEST, request);
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {		
+		return handleValidationInternal(ex, ex.getBindingResult(), headers, status, request);		
 	}
 	
 	private ResponseEntity<Object> handleValidationInternal(Exception ex, 
@@ -88,11 +88,29 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 		
 	}
 	
-	@Override
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-			HttpHeaders headers, HttpStatus status, WebRequest request) {		
-		return handleValidationInternal(ex, ex.getBindingResult(), headers, status, request);		
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<Object> handleUnCaught(Exception ex, WebRequest request){
+		
+		HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+		ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
+		String detail = "Ocorreu um erro interno inesperado no sistema. Tenta novamente e "
+				+ "se o problema persistir, entre em contato com o administrado do sistema.";
+		
+		ex.printStackTrace();		
+		
+		Problem problem = createProblemBuilder(status, problemType, detail)
+				.userMessage(detail)
+				.build();		
+		
+		return handleExceptionInternal(ex, problem, new HttpHeaders(),
+				status, request);			
 	}
+	
+	@ExceptionHandler(ValidacaoException.class)
+	public ResponseEntity<Object> handleValidacaoException(ValidacaoException ex, WebRequest request) {
+		return handleValidationInternal(ex, ex.getBindingResult(), new HttpHeaders(),
+				HttpStatus.BAD_REQUEST, request);
+	}	
 	
 	@Override
 	protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers,
@@ -173,13 +191,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 		.build();
 		
 		return handleExceptionInternal(ex, problem, headers, status, request);
-	}
-
-	private String joinPath(List<Reference> references) {		
-		return references.stream()
-				.map(ref -> ref.getFieldName())
-				.collect(Collectors.joining("."));
-	}
+	}	
 
 	private ResponseEntity<Object> handleInvalidFormat(InvalidFormatException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -213,26 +225,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 		
 		return handleExceptionInternal(ex, problem, new HttpHeaders(),
 				status, request);		
-	}
-	
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<Object> handleUnCaught(Exception ex, WebRequest request){
-		
-		HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-		ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
-		String detail = "Ocorreu um erro interno inesperado no sistema. Tenta novamente e "
-				+ "se o problema persistir, entre em contato com o administrado do sistema.";
-		
-		ex.printStackTrace();		
-		
-		Problem problem = createProblemBuilder(status, problemType, detail)
-				.userMessage(detail)
-				.build();		
-		
-		return handleExceptionInternal(ex, problem, new HttpHeaders(),
-				status, request);			
-	}
-	
+	}	
 	
 	@ExceptionHandler(EntidadeEmUsoException.class)
 	public ResponseEntity<?> handleEntidadeEmUso(
@@ -298,6 +291,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 				.type(problemType.getUri())
 				.title(problemType.getTitle())
 				.detail(detail);
+	}
+	
+	private String joinPath(List<Reference> references) {		
+		return references.stream()
+				.map(ref -> ref.getFieldName())
+				.collect(Collectors.joining("."));
 	}
 	
 }
