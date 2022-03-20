@@ -13,17 +13,17 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 public  class AmazonS3Config {
 	
 	@Autowired
-	private StorageProperties sotraProperties;
+	private StorageProperties storageProperties;
 	
 	@Bean
 	public AmazonS3 amazonS3() {
 		var credentials = new BasicAWSCredentials(
-				sotraProperties.getS3().getIdChaveAcesso(),
-				sotraProperties.getS3().getChaveAcessoSecreta());
+				storageProperties.getS3().getIdChaveAcesso(),
+				storageProperties.getS3().getChaveAcessoSecreta());
 		
 		return AmazonS3ClientBuilder.standard()
 				.withCredentials(new AWSStaticCredentialsProvider(credentials))
-				.withRegion(sotraProperties.getS3().getRegiao())
+				.withRegion(storageProperties.getS3().getRegiao())
 				.build();
 	}
 
