@@ -8,7 +8,7 @@ import lombok.Getter;
 
 public interface FotoStorageService {
 	
-	public InputStream recuperar(String nomeArquivo);
+	public FotoRecuperada recuperar(String nomeArquivo);
 	
 	public void amazenar(NovaFoto novaFoto);
 	
@@ -33,6 +33,22 @@ public interface FotoStorageService {
 		private String nomeArquivo;
 		private String contentType;
 		private InputStream inputStream;
+	}
+	
+	@Builder
+	@Getter
+	class FotoRecuperada{
+		
+		private InputStream inputStream;
+		private String url;
+		
+		public boolean temUrl() {
+			return url != null;
+		}
+		
+		public boolean temInputStream() {
+			return inputStream != null;
+		}
 	}
 
 }
