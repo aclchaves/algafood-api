@@ -29,11 +29,14 @@ public class FluxoPedidoService {
 	public void entregar(String  codigoPedido) {
 		Pedido pedido = emissaoPedido.buscarOuFalha(codigoPedido);
 		pedido.entregar();		
+		
 	}
 	
 	@Transactional
 	public void cancelar(String codigoPedido) {
 		Pedido pedido = emissaoPedido.buscarOuFalha(codigoPedido);
 		pedido.cancelar();
+		
+		pedidoRepository.save(pedido);
 	}
 }
