@@ -14,7 +14,7 @@ import com.algaworks.algafood.domain.service.EnvioEmailService;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
-@Service
+//@Service
 public class SmtpEnvioEmailService implements EnvioEmailService{
 	
 	@Autowired
@@ -24,7 +24,7 @@ public class SmtpEnvioEmailService implements EnvioEmailService{
 	private EmailProperties emailProperties;
 	
 	@Autowired
-	private Configuration freemarkerConfig;
+	protected Configuration freemarkerConfig;
 
 	@Override
 	public void enviar(Mensagem mensagem) {
