@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import com.algaworks.algafood.core.email.EmailProperties.Implementacao;
 import com.algaworks.algafood.domain.service.EnvioEmailService;
 import com.algaworks.algafood.infrastructure.service.email.FakeEnvioEmailService;
+import com.algaworks.algafood.infrastructure.service.email.SandboxEnvioEmailService;
 import com.algaworks.algafood.infrastructure.service.email.SmtpEnvioEmailService;
 
 @Configuration
@@ -17,11 +18,17 @@ public  class EmailConfig {
 			
 	@Bean
 	public EnvioEmailService envioEmailService() {
-		if(Implementacao.SMTP.equals(emailProperties.getImpl())){
-			return new SmtpEnvioEmailService();
-		}else {
-			return new FakeEnvioEmailService();
-		}
+		 // Acho melhor usar switch aqui do que if/else if
+        switch (emailProperties.getImpl()) {
+            case FAKE:
+                return new FakeEnvioEmailService();
+            case SMTP:
+                return new SmtpEnvioEmailService();
+            case SANDBOX:
+                return new SandboxEnvioEmailService();
+            default:
+                return null;
+        }
 	}
 
 }
