@@ -5,7 +5,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,15 +50,23 @@ public class RestauranteController {
 	
 	@JsonView(RestauranteView.Resumo.class)
 	@GetMapping
-	public List<RestauranteModel> listar() {
-		return restauranteModelAssembler.toCollectionModel(restauranteRepository.findAll());
+	public ResponseEntity< List<RestauranteModel>> listar() {
+		List<RestauranteModel> restaurantesModel = restauranteModelAssembler
+				.toCollectionModel(restauranteRepository.findAll());
+		
+		return ResponseEntity.ok()
+				//para liberar de apenas um site cruzado
+				//.header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://127.0.0.1:8000")
+				//aceita referencia cruzada de qqer site
+				.header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*")
+				.body(restaurantesModel);
 	}
 	
-	@JsonView(RestauranteView.ApenasNome.class)
-	@GetMapping(params = "projecao=apenas-nome")
-	public List<RestauranteModel> listarApenasNome() {
-		return listar();
-	}
+//	@JsonView(RestauranteView.ApenasNome.class)
+//	@GetMapping(params = "projecao=apenas-nome")
+//	public List<RestauranteModel> listarApenasNome() {
+//		return listar();
+//	}
 		
 //	@GetMapping
 //	public MappingJacksonValue listar(
