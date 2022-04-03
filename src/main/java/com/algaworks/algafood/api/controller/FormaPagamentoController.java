@@ -62,14 +62,18 @@ public class FormaPagamentoController {
 	}
 	
 	@GetMapping("/{formaPagamentoId}")
-	public FormaPagamentoModel buscar (@PathVariable Long formaPagamentoId) {
+	public ResponseEntity<FormaPagamentoModel> buscar (@PathVariable Long formaPagamentoId) {
 		try {
 			
 			FormaPagamento formaPagamento = cadastroFormaPagamento
 					.buscarOuFalhar(formaPagamentoId);
 			
-			return formaPagamentoModelAssembler
+			FormaPagamentoModel formaPagamentoModel = formaPagamentoModelAssembler
 					.toModel(formaPagamento);
+			
+			return ResponseEntity.ok()
+					.cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+					.body(formaPagamentoModel);
 			
 		} catch (FormaPagamentoNaoEncontradaException e) {
 			throw new NegocioException(e.getMessage(), e);
