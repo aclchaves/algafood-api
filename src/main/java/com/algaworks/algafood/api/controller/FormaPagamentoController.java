@@ -55,7 +55,7 @@ public class FormaPagamentoController {
 		
 		String eTag = "0";
 		
-		OffsetDateTime dataUltimaAtualizacao = formaPagamentoRespository.getDAtaUltimaAtualizacao();
+		OffsetDateTime dataUltimaAtualizacao = formaPagamentoRespository.getDataUltimaAtualizacao();
 		
 		if(dataUltimaAtualizacao != null) {
 			eTag = String.valueOf(dataUltimaAtualizacao.toEpochSecond());
@@ -80,7 +80,25 @@ public class FormaPagamentoController {
 	}
 	
 	@GetMapping("/{formaPagamentoId}")
-	public ResponseEntity<FormaPagamentoModel> buscar (@PathVariable Long formaPagamentoId) {
+	public ResponseEntity<FormaPagamentoModel> buscar (ServletWebRequest request,
+			@PathVariable Long formaPagamentoId) {
+		
+		ShallowEtagHeaderFilter.disableContentCaching(request.getRequest());
+		
+		String eTag = "0";
+		
+		OffsetDateTime dataAtualizacao = formaPagamentoRespository
+				.getDataAtualizacaoById(formaPagamentoId);
+		
+		if(dataAtualizacao != null) {
+			eTag = String.valueOf(dataAtualizacao.toEpochSecond());
+		}
+		
+		//já temos condições de saber se continua ou não o processamento
+		if(request.checkNotModified(eTag)) {
+			return null;
+		}
+		
 		try {
 			
 			FormaPagamento formaPagamento = cadastroFormaPagamento
@@ -91,6 +109,7 @@ public class FormaPagamentoController {
 			
 			return ResponseEntity.ok()
 					.cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+					.eTag(eTag)
 					.body(formaPagamentoModel);
 			
 		} catch (FormaPagamentoNaoEncontradaException e) {
