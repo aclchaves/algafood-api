@@ -70,10 +70,10 @@ insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_a
 insert into restaurante (id, nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, ativo, aberto) values (8, 'Bar da Maria', 6, 4, utc_timestamp, utc_timestamp, true, true);
 
 
-insert into forma_pagamento (id, descricao) values (1, 'Cartão de crédito');
-insert into forma_pagamento (id, descricao) values (2, 'Cartão de débito');
-insert into forma_pagamento (id, descricao) values (3, 'Dinheiro');
-insert into forma_pagamento (id, descricao) values (4, 'cheque');
+insert into forma_pagamento (id, descricao, data_atualizacao) values (1, 'Cartão de crédito', utc_timestamp);
+insert into forma_pagamento (id, descricao, data_atualizacao) values (2, 'Cartão de débito', utc_timestamp);
+insert into forma_pagamento (id, descricao, data_atualizacao) values (3, 'Dinheiro', utc_timestamp);
+insert into forma_pagamento (id, descricao, data_atualizacao) values (4, 'cheque', utc_timestamp);
 
 insert into permissao (id, nome,  descricao) values (1, 'USUARIO', 'acesso de usuario comum');
 insert into permissao (id, nome, descricao) values (2, 'ADMINISTRADOR', 'acesso de administrador do sistema');
